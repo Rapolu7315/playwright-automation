@@ -1,13 +1,14 @@
 import { test, expect } from '@playwright/test';
 import { BasePage } from '../core/Basepage';
+import { AppConfig } from '../config/Appconfig';
+import { HomePage } from '../pages/Homepage';
 
 
-test('has title', async ({ page }) => {
-  const basePage = new BasePage(page);
-  await basePage.navigate('https://playwright.dev/');
-
-  // Expect a title "to contain" a substring.
-
+test('Verify the header and title', async ({ page }) => {
+  const homepage = new HomePage(page);
+  await page.goto(AppConfig.BASE_URL);
+  await expect(page).toHaveTitle('Automation Testing Practice');
+  await expect(homepage.header).toBeVisible();
 });
 
 test('get started link', async ({ page }) => {
